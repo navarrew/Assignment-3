@@ -18,11 +18,11 @@ best <- function(state, outcome) {
         
         outcome_data <- read.csv("data/outcome-of-care-measures.csv", colClasses = "character")
         outcome_data_trimmed <- outcome_data[,c(2,7,outcome_col)]
+        names(outcome_data_trimmed)<-c("Hospital","State","Outcome")
         state_subset <<- filter(outcome_data_trimmed, State == state)
         state_subset[ ,3] <<- as.numeric(state_subset[ ,3])
         final_frame <<- state_subset[complete.cases(state_subset),]
-##        final_frame <<- state_subset[good,]
-##        final_frame[ ,3] <<- as.numeric(final_frame[ ,3])
+        final_frame  %>% rename_at( 3, ~"RenamedColumn" )
         str(final_frame)
         
         
